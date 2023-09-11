@@ -17,10 +17,10 @@ XYZ::XYZ(double X = 0, double Y = 0, double Z = 0)
 
 RGB &XYZ::toRGB() const
 {
-    // TODO: вставьте здесь оператор return
+
 }
 
 LAB &XYZ::toLAB() const
 {
-    // TODO: вставьте здесь оператор return
+
 }
