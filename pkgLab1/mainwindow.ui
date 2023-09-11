@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>50</y>
+      <width>160</width>
+      <height>160</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>50</y>
+      <width>131</width>
+      <height>28</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>50</y>
+      <width>63</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>HEX:     #</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>50</y>
+      <width>191</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>1. RGB ↔ LAB ↔ CMYK</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>2. RGB ↔ CMYK ↔ HLS</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>3. RGB ↔ XYZ ↔ LAB</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>4. RGB ↔ HSV ↔ LAB</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>5. CMYK ↔ LAB ↔ HSV</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>6. CMYK ↔ RGB ↔ HLS</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>7. CMYK ↔ RGB ↔ HSV</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>8. RGB ↔ XYZ ↔ HSV</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>9. HSV ↔ XYZ ↔ LAB</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>10. CMYK ↔ LAB ↔ RGB</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>11. XYZ ↔ LAB ↔ HLS</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>12. RGB ↔ XYZ ↔ HLS</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>13. RGB ↔ XYZ ↔ CMYK</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>14. CMYK ↔ LAB ↔ XYZ</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>15. RGB ↔ CMYK ↔ HSV</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>16. CMYK ↔ HLS ↔ XYZ</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>17. RGB ↔ HLS ↔ LAB</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>18. CMYK ↔ XYZ ↔ RG</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
