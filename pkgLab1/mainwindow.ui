@@ -29,138 +29,15 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>50</y>
+      <x>300</x>
+      <y>40</y>
       <width>160</width>
       <height>160</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
     </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>370</x>
-      <y>50</y>
-      <width>131</width>
-      <height>28</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>50</y>
-      <width>63</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>HEX:     #</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="comboBox">
-    <property name="geometry">
-     <rect>
-      <x>520</x>
-      <y>50</y>
-      <width>191</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>1. RGB ↔ LAB ↔ CMYK</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>2. RGB ↔ CMYK ↔ HLS</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>3. RGB ↔ XYZ ↔ LAB</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>4. RGB ↔ HSV ↔ LAB</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>5. CMYK ↔ LAB ↔ HSV</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>6. CMYK ↔ RGB ↔ HLS</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>7. CMYK ↔ RGB ↔ HSV</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>8. RGB ↔ XYZ ↔ HSV</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>9. HSV ↔ XYZ ↔ LAB</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>10. CMYK ↔ LAB ↔ RGB</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>11. XYZ ↔ LAB ↔ HLS</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>12. RGB ↔ XYZ ↔ HLS</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>13. RGB ↔ XYZ ↔ CMYK</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>14. CMYK ↔ LAB ↔ XYZ</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>15. RGB ↔ CMYK ↔ HSV</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>16. CMYK ↔ HLS ↔ XYZ</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>17. RGB ↔ HLS ↔ LAB</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>18. CMYK ↔ XYZ ↔ RG</string>
-     </property>
-    </item>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
@@ -172,7 +49,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>RGB</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox">
@@ -184,6 +61,12 @@
       <height>29</height>
      </rect>
     </property>
+    <property name="decimals">
+     <number>0</number>
+    </property>
+    <property name="maximum">
+     <double>255.000000000000000</double>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
     <property name="geometry">
@@ -193,6 +76,12 @@
       <width>91</width>
       <height>29</height>
      </rect>
+    </property>
+    <property name="decimals">
+     <number>0</number>
+    </property>
+    <property name="maximum">
+     <double>255.000000000000000</double>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
@@ -204,8 +93,17 @@
       <height>29</height>
      </rect>
     </property>
+    <property name="decimals">
+     <number>0</number>
+    </property>
+    <property name="maximum">
+     <double>255.000000000000000</double>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -218,141 +116,168 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>50</x>
       <y>320</y>
-      <width>63</width>
+      <width>20</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>R</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>50</x>
       <y>360</y>
-      <width>63</width>
+      <width>20</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>G</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>50</x>
       <y>400</y>
-      <width>63</width>
+      <width>20</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>B</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>50</x>
       <y>440</y>
-      <width>63</width>
+      <width>20</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>-</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>310</x>
       <y>400</y>
-      <width>63</width>
+      <width>20</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>B</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_8">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>340</x>
       <y>290</y>
       <width>71</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>LAB</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>340</x>
       <y>320</y>
       <width>91</width>
       <height>29</height>
      </rect>
     </property>
+    <property name="decimals">
+     <number>3</number>
+    </property>
+    <property name="maximum">
+     <double>100.000000000000000</double>
+    </property>
    </widget>
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>310</x>
       <y>440</y>
-      <width>63</width>
+      <width>20</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>-</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>340</x>
       <y>400</y>
       <width>91</width>
       <height>29</height>
      </rect>
     </property>
+    <property name="decimals">
+     <number>3</number>
+    </property>
+    <property name="minimum">
+     <double>-128.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>128.000000000000000</double>
+    </property>
    </widget>
    <widget class="QLabel" name="label_10">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>310</x>
       <y>360</y>
-      <width>63</width>
+      <width>20</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>A</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_7">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>340</x>
       <y>360</y>
       <width>91</width>
       <height>29</height>
      </rect>
     </property>
+    <property name="decimals">
+     <number>3</number>
+    </property>
+    <property name="minimum">
+     <double>-128.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>128.000000000000000</double>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_8">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>340</x>
       <y>440</y>
       <width>91</width>
       <height>29</height>
@@ -362,27 +287,27 @@
    <widget class="QLabel" name="label_11">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>310</x>
       <y>320</y>
-      <width>63</width>
+      <width>20</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>L</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_12">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>570</x>
       <y>400</y>
-      <width>63</width>
+      <width>20</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>Y</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_13">
@@ -395,7 +320,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>CMYK</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_9">
@@ -407,18 +332,24 @@
       <height>29</height>
      </rect>
     </property>
+    <property name="decimals">
+     <number>3</number>
+    </property>
+    <property name="maximum">
+     <double>100.000000000000000</double>
+    </property>
    </widget>
    <widget class="QLabel" name="label_14">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>570</x>
       <y>440</y>
-      <width>63</width>
+      <width>20</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>K</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_10">
@@ -430,18 +361,24 @@
       <height>29</height>
      </rect>
     </property>
+    <property name="decimals">
+     <number>3</number>
+    </property>
+    <property name="maximum">
+     <double>100.000000000000000</double>
+    </property>
    </widget>
    <widget class="QLabel" name="label_15">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>570</x>
       <y>360</y>
-      <width>63</width>
+      <width>20</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>M</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_11">
@@ -453,6 +390,12 @@
       <height>29</height>
      </rect>
     </property>
+    <property name="decimals">
+     <number>3</number>
+    </property>
+    <property name="maximum">
+     <double>100.000000000000000</double>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_12">
     <property name="geometry">
@@ -463,19 +406,145 @@
       <height>29</height>
      </rect>
     </property>
+    <property name="decimals">
+     <number>3</number>
+    </property>
+    <property name="maximum">
+     <double>100.000000000000000</double>
+    </property>
    </widget>
    <widget class="QLabel" name="label_16">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>570</x>
       <y>320</y>
-      <width>63</width>
+      <width>20</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>C</string>
     </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_2">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>250</y>
+      <width>91</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>RGB</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>CMYK</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>HSV</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>HSL</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>XYZ</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>LAB</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="comboBox_3">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>250</y>
+      <width>91</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>LAB</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>RGB</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>CMYK</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>HSV</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>HSL</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>XYZ</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="comboBox_4">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>250</y>
+      <width>91</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>CMYK</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>RGB</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>HSV</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>HSL</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>XYZ</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>LAB</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
