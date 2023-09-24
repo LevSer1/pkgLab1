@@ -7,6 +7,16 @@
 class ColorSystem
 {
 public:
+    virtual double getParam1() = 0;
+    virtual double getParam2() = 0;
+    virtual double getParam3() = 0;
+    virtual double getParam4() = 0;
+
+    virtual void setParam1(double val) = 0;
+    virtual void setParam2(double val) = 0;
+    virtual void setParam3(double val) = 0;
+    virtual void setParam4(double val) = 0;
+
     virtual ColorSystem *toRGB() = 0;
     virtual ColorSystem *toCMYK() = 0;
     virtual ColorSystem *toHSV() = 0;
@@ -30,6 +40,16 @@ private:
 public:
     RGB(int R, int G, int B);
 
+    double getParam1() override;
+    double getParam2() override;
+    double getParam3() override;
+    double getParam4() override;
+
+    void setParam1(double val) override;
+    void setParam2(double val) override;
+    void setParam3(double val) override;
+    void setParam4(double val) override;
+
     ColorSystem *toRGB() override;
     ColorSystem *toCMYK() override;
     ColorSystem *toHSV() override;
@@ -51,6 +71,16 @@ private:
 public:
     CMYK(double C, double M, double Y, double K);
 
+    double getParam1() override;
+    double getParam2() override;
+    double getParam3() override;
+    double getParam4() override;
+
+    void setParam1(double val) override;
+    void setParam2(double val) override;
+    void setParam3(double val) override;
+    void setParam4(double val) override;
+
     ColorSystem *toRGB() override;
     ColorSystem *toCMYK() override;
     ColorSystem *toHSV() override;
@@ -71,6 +101,16 @@ private:
 public:
     HSV(double H, double S, double V);
 
+    double getParam1() override;
+    double getParam2() override;
+    double getParam3() override;
+    double getParam4() override;
+
+    void setParam1(double val) override;
+    void setParam2(double val) override;
+    void setParam3(double val) override;
+    void setParam4(double val) override;
+
     ColorSystem *toRGB() override;
     ColorSystem *toCMYK() override;
     ColorSystem *toHSV() override;
@@ -90,6 +130,16 @@ private:
 
 public:
     HLS(double H, double L, double S);
+
+    double getParam1() override;
+    double getParam2() override;
+    double getParam3() override;
+    double getParam4() override;
+
+    void setParam1(double val) override;
+    void setParam2(double val) override;
+    void setParam3(double val) override;
+    void setParam4(double val) override;
 
     ColorSystem *toRGB() override;
     ColorSystem *toCMYK() override;
@@ -114,6 +164,16 @@ private:
 public:
     XYZ(double X, double Y, double Z);
 
+    double getParam1() override;
+    double getParam2() override;
+    double getParam3() override;
+    double getParam4() override;
+
+    void setParam1(double val) override;
+    void setParam2(double val) override;
+    void setParam3(double val) override;
+    void setParam4(double val) override;
+
     ColorSystem *toRGB() override;
     ColorSystem *toCMYK() override;
     ColorSystem *toHSV() override;
@@ -135,6 +195,16 @@ private:
 
 public:
     Lab(double L_, double a_, double b_);
+
+    double getParam1() override;
+    double getParam2() override;
+    double getParam3() override;
+    double getParam4() override;
+
+    void setParam1(double val) override;
+    void setParam2(double val) override;
+    void setParam3(double val) override;
+    void setParam4(double val) override;
 
     ColorSystem *toRGB() override;
     ColorSystem *toCMYK() override;

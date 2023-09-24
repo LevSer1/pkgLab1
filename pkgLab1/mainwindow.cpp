@@ -7,7 +7,26 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    buttonColor();
+    first = new RGB(0, 0, 0);
+    second = new Lab(0, 0, 0);
+    third = new CMYK(0, 0, 0, 0);
+
+    connect(ui->doubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(valueChanged1(double)));
+    connect(ui->doubleSpinBox_2, SIGNAL(valueChanged(double)), this, SLOT(valueChanged1(double)));
+    connect(ui->doubleSpinBox_3, SIGNAL(valueChanged(double)), this, SLOT(valueChanged1(double)));
+    connect(ui->doubleSpinBox_4, SIGNAL(valueChanged(double)), this, SLOT(valueChanged1(double)));
+
+    connect(ui->doubleSpinBox_5, SIGNAL(valueChanged(double)), this, SLOT(valueChanged2(double)));
+    connect(ui->doubleSpinBox_7, SIGNAL(valueChanged(double)), this, SLOT(valueChanged2(double)));
+    connect(ui->doubleSpinBox_6, SIGNAL(valueChanged(double)), this, SLOT(valueChanged2(double)));
+    connect(ui->doubleSpinBox_8, SIGNAL(valueChanged(double)), this, SLOT(valueChanged2(double)));
+
+    connect(ui->doubleSpinBox_9, SIGNAL(valueChanged(double)), this, SLOT(valueChanged3(double)));
+    connect(ui->doubleSpinBox_11, SIGNAL(valueChanged(double)), this, SLOT(valueChanged3(double)));
+    connect(ui->doubleSpinBox_10, SIGNAL(valueChanged(double)), this, SLOT(valueChanged3(double)));
+    connect(ui->doubleSpinBox_12, SIGNAL(valueChanged(double)), this, SLOT(valueChanged3(double)));
+
+    updateColor();
 }
 
 MainWindow::~MainWindow()
@@ -22,14 +41,29 @@ void MainWindow::on_pushButton_clicked()
     if (color.isValid())
     {
         mainColor = color;
-        buttonColor();
+        updateColor();
     }
 }
 
-void MainWindow::buttonColor()
+void MainWindow::updateColor()
 {
     QString styleSheet = QString("background-color: %1").arg(mainColor.name());
     ui->pushButton->setStyleSheet(styleSheet);
+
+    ui->doubleSpinBox->setValue(first->getParam1());
+    ui->doubleSpinBox_2->setValue(first->getParam2());
+    ui->doubleSpinBox_3->setValue(first->getParam3());
+    ui->doubleSpinBox_4->setValue(first->getParam4());
+
+    ui->doubleSpinBox_5->setValue(second->getParam1());
+    ui->doubleSpinBox_7->setValue(second->getParam2());
+    ui->doubleSpinBox_6->setValue(second->getParam3());
+    ui->doubleSpinBox_8->setValue(second->getParam4());
+
+    ui->doubleSpinBox_9->setValue(third->getParam1());
+    ui->doubleSpinBox_11->setValue(third->getParam2());
+    ui->doubleSpinBox_10->setValue(third->getParam3());
+    ui->doubleSpinBox_12->setValue(third->getParam4());
 }
 
 void MainWindow::setFirst(QString sys)
@@ -494,26 +528,34 @@ void MainWindow::on_comboBox_2_activated(int index)
     {
     case 0:
         setFirst("RGB");
+        first = second->toRGB();
         break;
     case 1:
         setFirst("CMYK");
+        first = second->toCMYK();
         break;
     case 2:
         setFirst("HSV");
+        first = second->toHSV();
         break;
     case 3:
         setFirst("HSL");
+        first = second->toHLS();
         break;
     case 4:
         setFirst("XYZ");
+        first = second->toXYZ();
         break;
     case 5:
         setFirst("LAB");
+        first = second->toLAB();
         break;
 
     default:
         break;
     }
+
+    updateColor();
 }
 
 void MainWindow::on_comboBox_3_activated(int index)
@@ -522,26 +564,34 @@ void MainWindow::on_comboBox_3_activated(int index)
     {
     case 1:
         setSecond("RGB");
+        second = first->toRGB();
         break;
     case 2:
         setSecond("CMYK");
+        second = first->toCMYK();
         break;
     case 3:
         setSecond("HSV");
+        second = first->toHSV();
         break;
     case 4:
         setSecond("HSL");
+        second = first->toHLS();
         break;
     case 5:
         setSecond("XYZ");
+        second = first->toXYZ();
         break;
     case 0:
         setSecond("LAB");
+        second = first->toLAB();
         break;
 
     default:
         break;
     }
+
+    updateColor();
 }
 
 void MainWindow::on_comboBox_4_activated(int index)
@@ -550,24 +600,80 @@ void MainWindow::on_comboBox_4_activated(int index)
     {
     case 1:
         setThird("RGB");
+        third = second->toRGB();
         break;
     case 0:
         setThird("CMYK");
+        third = second->toCMYK();
         break;
     case 2:
         setThird("HSV");
+        third = second->toHSV();
         break;
     case 3:
         setThird("HSL");
+        third = second->toHLS();
         break;
     case 4:
         setThird("XYZ");
+        third = second->toXYZ();
         break;
     case 5:
         setThird("LAB");
+        third = second->toLAB();
         break;
 
     default:
         break;
     }
+
+    updateColor();
+}
+
+void MainWindow::valueChanged1(double)
+{
+    double val1 = ui->doubleSpinBox->value(), val2 = ui->doubleSpinBox_2->value(),
+           val3 = ui->doubleSpinBox_3->value(), val4 = ui->doubleSpinBox_4->value();
+
+    first->setParam1(val1);
+    first->setParam2(val2);
+    first->setParam3(val3);
+    first->setParam4(val4);
+
+    mainColor.setRed(first->toRGB()->getParam1());
+    mainColor.setGreen(first->toRGB()->getParam2());
+    mainColor.setBlue(first->toRGB()->getParam3());
+    updateColor();
+}
+
+void MainWindow::valueChanged2(double)
+{
+    double val1 = ui->doubleSpinBox_5->value(), val2 = ui->doubleSpinBox_7->value(),
+           val3 = ui->doubleSpinBox_6->value(), val4 = ui->doubleSpinBox_8->value();
+
+    second->setParam1(val1);
+    second->setParam2(val2);
+    second->setParam3(val3);
+    second->setParam4(val4);
+
+    mainColor.setRed(second->toRGB()->getParam1());
+    mainColor.setGreen(second->toRGB()->getParam2());
+    mainColor.setBlue(second->toRGB()->getParam3());
+    updateColor();
+}
+
+void MainWindow::valueChanged3(double)
+{
+    double val1 = ui->doubleSpinBox_9->value(), val2 = ui->doubleSpinBox_11->value(),
+           val3 = ui->doubleSpinBox_10->value(), val4 = ui->doubleSpinBox_12->value();
+
+    third->setParam1(val1);
+    third->setParam2(val2);
+    third->setParam3(val3);
+    third->setParam4(val4);
+
+    mainColor.setRed(third->toRGB()->getParam1());
+    mainColor.setGreen(third->toRGB()->getParam2());
+    mainColor.setBlue(third->toRGB()->getParam3());
+    updateColor();
 }
