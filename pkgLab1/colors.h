@@ -159,7 +159,6 @@ private:
     double z;
 
     double F(double x_);
-    double Flab(double x_);
 
 public:
     XYZ(double X, double Y, double Z);

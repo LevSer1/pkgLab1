@@ -41,6 +41,86 @@ void MainWindow::on_pushButton_clicked()
     if (color.isValid())
     {
         mainColor = color;
+        RGB *rgb = new RGB(mainColor.red(), mainColor.green(), mainColor.blue());
+
+        QString fir = ui->label_2->text();
+        if (fir == "RGB")
+        {
+            first = rgb->toRGB();
+        }
+        else if (fir == "CMYK")
+        {
+            first = rgb->toCMYK();
+        }
+        else if (fir == "HSV")
+        {
+            first = rgb->toHSV();
+        }
+        else if (fir == "HSL")
+        {
+            first = rgb->toHLS();
+        }
+        else if (fir == "XYZ")
+        {
+            first = rgb->toXYZ();
+        }
+        else
+        {
+            first = rgb->toLAB();
+        }
+
+        QString sec = ui->label_8->text();
+        if (sec == "RGB")
+        {
+            second = rgb->toRGB();
+        }
+        else if (sec == "CMYK")
+        {
+            second = rgb->toCMYK();
+        }
+        else if (sec == "HSV")
+        {
+            second = rgb->toHSV();
+        }
+        else if (sec == "HSL")
+        {
+            second = rgb->toHLS();
+        }
+        else if (sec == "XYZ")
+        {
+            second = rgb->toXYZ();
+        }
+        else
+        {
+            second = rgb->toLAB();
+        }
+
+        QString thi = ui->label_13->text();
+        if (thi == "RGB")
+        {
+            third = rgb->toRGB();
+        }
+        else if (thi == "CMYK")
+        {
+            third = rgb->toCMYK();
+        }
+        else if (thi == "HSV")
+        {
+            third = rgb->toHSV();
+        }
+        else if (thi == "HSL")
+        {
+            third = rgb->toHLS();
+        }
+        else if (thi == "XYZ")
+        {
+            third = rgb->toXYZ();
+        }
+        else
+        {
+            third = rgb->toLAB();
+        }
+
         updateColor();
     }
 }
@@ -49,6 +129,8 @@ void MainWindow::updateColor()
 {
     QString styleSheet = QString("background-color: %1").arg(mainColor.name());
     ui->pushButton->setStyleSheet(styleSheet);
+
+    offSignals(true);
 
     ui->doubleSpinBox->setValue(first->getParam1());
     ui->doubleSpinBox_2->setValue(first->getParam2());
@@ -64,6 +146,8 @@ void MainWindow::updateColor()
     ui->doubleSpinBox_11->setValue(third->getParam2());
     ui->doubleSpinBox_10->setValue(third->getParam3());
     ui->doubleSpinBox_12->setValue(third->getParam4());
+
+    offSignals(false);
 }
 
 void MainWindow::setFirst(QString sys)
@@ -229,6 +313,11 @@ void MainWindow::setSecond(QString sys)
         ui->label_9->setText("-");
 
         ui->doubleSpinBox_8->setEnabled(false);
+
+        ui->doubleSpinBox_5->blockSignals(true);
+        ui->doubleSpinBox_7->blockSignals(true);
+        ui->doubleSpinBox_6->blockSignals(true);
+        ui->doubleSpinBox_8->blockSignals(true);
 
         ui->doubleSpinBox_5->setMaximum(255);
         ui->doubleSpinBox_5->setMinimum(0);
@@ -524,6 +613,8 @@ void MainWindow::setThird(QString sys)
 
 void MainWindow::on_comboBox_2_activated(int index)
 {
+    offSignals(true);
+
     switch (index)
     {
     case 0:
@@ -555,11 +646,14 @@ void MainWindow::on_comboBox_2_activated(int index)
         break;
     }
 
+    offSignals(false);
     updateColor();
 }
 
 void MainWindow::on_comboBox_3_activated(int index)
 {
+    offSignals(true);
+
     switch (index)
     {
     case 1:
@@ -591,11 +685,14 @@ void MainWindow::on_comboBox_3_activated(int index)
         break;
     }
 
+    offSignals(false);
     updateColor();
 }
 
 void MainWindow::on_comboBox_4_activated(int index)
 {
+    offSignals(true);
+
     switch (index)
     {
     case 1:
@@ -627,6 +724,7 @@ void MainWindow::on_comboBox_4_activated(int index)
         break;
     }
 
+    offSignals(false);
     updateColor();
 }
 
@@ -639,6 +737,58 @@ void MainWindow::valueChanged1(double)
     first->setParam2(val2);
     first->setParam3(val3);
     first->setParam4(val4);
+
+    QString sec = ui->label_8->text();
+    if (sec == "RGB")
+    {
+        second = first->toRGB();
+    }
+    else if (sec == "CMYK")
+    {
+        second = first->toCMYK();
+    }
+    else if (sec == "HSV")
+    {
+        second = first->toHSV();
+    }
+    else if (sec == "HSL")
+    {
+        second = first->toHLS();
+    }
+    else if (sec == "XYZ")
+    {
+        second = first->toXYZ();
+    }
+    else
+    {
+        second = first->toLAB();
+    }
+
+    QString thi = ui->label_13->text();
+    if (thi == "RGB")
+    {
+        third = first->toRGB();
+    }
+    else if (thi == "CMYK")
+    {
+        third = first->toCMYK();
+    }
+    else if (thi == "HSV")
+    {
+        third = first->toHSV();
+    }
+    else if (thi == "HSL")
+    {
+        third = first->toHLS();
+    }
+    else if (thi == "XYZ")
+    {
+        third = first->toXYZ();
+    }
+    else
+    {
+        third = first->toLAB();
+    }
 
     mainColor.setRed(first->toRGB()->getParam1());
     mainColor.setGreen(first->toRGB()->getParam2());
@@ -656,6 +806,58 @@ void MainWindow::valueChanged2(double)
     second->setParam3(val3);
     second->setParam4(val4);
 
+    QString fir = ui->label_2->text();
+    if (fir == "RGB")
+    {
+        first = second->toRGB();
+    }
+    else if (fir == "CMYK")
+    {
+        first = second->toCMYK();
+    }
+    else if (fir == "HSV")
+    {
+        first = second->toHSV();
+    }
+    else if (fir == "HSL")
+    {
+        first = second->toHLS();
+    }
+    else if (fir == "XYZ")
+    {
+        first = second->toXYZ();
+    }
+    else
+    {
+        first = second->toLAB();
+    }
+
+    QString thi = ui->label_13->text();
+    if (thi == "RGB")
+    {
+        third = second->toRGB();
+    }
+    else if (thi == "CMYK")
+    {
+        third = second->toCMYK();
+    }
+    else if (thi == "HSV")
+    {
+        third = second->toHSV();
+    }
+    else if (thi == "HSL")
+    {
+        third = second->toHLS();
+    }
+    else if (thi == "XYZ")
+    {
+        third = second->toXYZ();
+    }
+    else
+    {
+        third = second->toLAB();
+    }
+
     mainColor.setRed(second->toRGB()->getParam1());
     mainColor.setGreen(second->toRGB()->getParam2());
     mainColor.setBlue(second->toRGB()->getParam3());
@@ -672,8 +874,77 @@ void MainWindow::valueChanged3(double)
     third->setParam3(val3);
     third->setParam4(val4);
 
+    QString fir = ui->label_2->text();
+    if (fir == "RGB")
+    {
+        first = third->toRGB();
+    }
+    else if (fir == "CMYK")
+    {
+        first = third->toCMYK();
+    }
+    else if (fir == "HSV")
+    {
+        first = third->toHSV();
+    }
+    else if (fir == "HSL")
+    {
+        first = third->toHLS();
+    }
+    else if (fir == "XYZ")
+    {
+        first = third->toXYZ();
+    }
+    else
+    {
+        first = third->toLAB();
+    }
+
+    QString sec = ui->label_8->text();
+    if (sec == "RGB")
+    {
+        second = third->toRGB();
+    }
+    else if (sec == "CMYK")
+    {
+        second = third->toCMYK();
+    }
+    else if (sec == "HSV")
+    {
+        second = third->toHSV();
+    }
+    else if (sec == "HSL")
+    {
+        second = third->toHLS();
+    }
+    else if (sec == "XYZ")
+    {
+        second = third->toXYZ();
+    }
+    else
+    {
+        second = third->toLAB();
+    }
+
     mainColor.setRed(third->toRGB()->getParam1());
     mainColor.setGreen(third->toRGB()->getParam2());
     mainColor.setBlue(third->toRGB()->getParam3());
     updateColor();
+}
+
+void MainWindow::offSignals(bool val)
+{
+    ui->doubleSpinBox->blockSignals(val);
+    ui->doubleSpinBox->blockSignals(val);
+    ui->doubleSpinBox_2->blockSignals(val);
+    ui->doubleSpinBox_3->blockSignals(val);
+    ui->doubleSpinBox_4->blockSignals(val);
+    ui->doubleSpinBox_5->blockSignals(val);
+    ui->doubleSpinBox_7->blockSignals(val);
+    ui->doubleSpinBox_6->blockSignals(val);
+    ui->doubleSpinBox_8->blockSignals(val);
+    ui->doubleSpinBox_9->blockSignals(val);
+    ui->doubleSpinBox_11->blockSignals(val);
+    ui->doubleSpinBox_10->blockSignals(val);
+    ui->doubleSpinBox_12->blockSignals(val);
 }

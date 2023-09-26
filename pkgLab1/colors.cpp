@@ -2,13 +2,31 @@
 
 RGB::RGB(int R, int G, int B)
 {
-    if (R > 255 || R < 0 || G > 255 || G < 0 || B > 255 || B < 0)
+    if (R > 255)
     {
-        throw "ERROR";
-        r = 0;
-        g = 0;
-        b = 0;
+        R = 255;
     }
+    else if (R < 0)
+    {
+        R = 0;
+    }
+    if (G > 255)
+    {
+        G = 255;
+    }
+    else if (G < 0)
+    {
+        G = 0;
+    }
+    if (B > 255)
+    {
+        B = 255;
+    }
+    else if (B < 0)
+    {
+        B = 0;
+    }
+
     r = R;
     g = G;
     b = B;
@@ -59,10 +77,8 @@ double RGB::fXyz(double x)
     {
         return pow((x + 0.055) / 1.055, 2.4);
     }
-    else
-    {
-        return x / 12.92;
-    }
+
+    return x / 12.92;
 }
 
 double RGB::fDop(double x)
@@ -71,10 +87,8 @@ double RGB::fDop(double x)
     {
         return pow(x, 1 / 3);
     }
-    else
-    {
-        return 7.787 * x + 16 / 116;
-    }
+
+    return 7.787 * x + 16 / 116;
 }
 
 ColorSystem *RGB::toRGB()
@@ -122,21 +136,22 @@ ColorSystem *RGB::toHSV()
     {
         h = 0;
     }
-    else if (Cmax == r / 255.0 && g / 255.0 >= b / 255.0)
+    else if (Cmax == r / 255.0)
     {
-        h = 60 * (g / 255.0 - b / 255.0) / delta + 0;
-    }
-    else if (Cmax == r / 255.0 && g / 255.0 < b / 255.0)
-    {
-        h = 60 * ((g / 255.0 - b / 255.0) / delta) + 360;
+        h = 60 * fmod(((g / 255.0 - b / 255.0) / delta), 6);
     }
     else if (Cmax == g / 255.0)
     {
-        h = 60 * (b / 255.0 - r / 255.0) / delta + 2;
+        h = 60 * (((b / 255.0 - r / 255.0) / delta) + 2);
     }
     else if (Cmax == b / 255.0)
     {
-        h = 60 * (r / 255.0 - g / 255.0) / delta + 4;
+        h = 60 * (((r / 255.0 - g / 255.0) / delta) + 4);
+    }
+
+    while (h < 0)
+    {
+        h += 360;
     }
 
     v = Cmax;
@@ -150,7 +165,7 @@ ColorSystem *RGB::toHSV()
         s = delta / Cmax;
     }
 
-    return new HSV(h, s, v);
+    return new HSV(h, s * 100, v * 100);
 }
 
 ColorSystem *RGB::toHLS()
@@ -169,21 +184,23 @@ ColorSystem *RGB::toHLS()
     {
         h = 0;
     }
-    else if (Cmax == r / 255.0 && g / 255.0 >= b / 255.0)
+    else if (Cmax == r / 255.0)
     {
-        h = 60 * ((g / 255.0 - b / 255.0) / delta) + 0;
-    }
-    else if (Cmax == r / 255.0 && g / 255.0 < b / 255.0)
-    {
-        h = 60 * ((g / 255.0 - b / 255.0) / delta) + 360;
+        h = ((g / 255.0 - b / 255.0) / delta) - (int)((g / 255.0 - b / 255.0) / delta) / 6 * 6;
     }
     else if (Cmax == g / 255.0)
     {
-        h = 60 * ((b / 255.0 - r / 255.0) / delta) + 2;
+        h = (b / 255.0 - r / 255.0) / delta + 2;
     }
-    else if (Cmax == b / 255.0)
+    else if (Cmax == b)
     {
-        h = 60 * (r / 255.0 - g / 255.0) / delta + 4;
+        h = (r / 255.0 - g / 255.0) / delta + 4;
+    }
+
+    h = round(h * 60);
+    while (h < 0)
+    {
+        h += 360;
     }
 
     l = (Cmax + Cmin) / 2;
@@ -213,13 +230,27 @@ ColorSystem *RGB::toXYZ()
 
 ColorSystem *RGB::toLAB()
 {
-    double l, a, b;
+    double R = r / 255.0;
+    double G = g / 255.0;
+    double B = b / 255.0;
 
-    l = 116 * fDop((0.212671 * fXyz(r / 255.0) * 100 + 0.715160 * fXyz(g / 255.0) * 100 + 0.072169 * fXyz(b / 255.0) * 100) / 100.0) - 16;
-    a = 500 * (fDop((0.4124453 * fXyz(r / 255.0) * 100 + 0.357580 * fXyz(g / 255.0) * 100 + 0.180423 * fXyz(b / 255.0) * 100) / 95.047) - fDop((0.212671 * fXyz(r / 255.0) * 100 + 0.715160 * fXyz(g / 255.0) * 100 + 0.072169 * fXyz(b / 255.0) * 100) / 100.0));
-    b = 200 * (fDop((0.212671 * fXyz(r / 255.0) * 100 + 0.715160 * fXyz(g / 255.0) * 100 + 0.072169 * fXyz(b / 255.0) * 100) / 100.0) - fDop((0.019334 * fXyz(r / 255.0) * 100 + 0.119193 * fXyz(g / 255.0) * 100 + 0.950227 * fXyz(b / 255.0) * 100) / 108.883));
+    R = (R <= 0.04045) ? (R / 12.92) : std::pow((R + 0.055) / 1.055, 2.4);
+    G = (G <= 0.04045) ? (G / 12.92) : std::pow((G + 0.055) / 1.055, 2.4);
+    B = (B <= 0.04045) ? (B / 12.92) : std::pow((B + 0.055) / 1.055, 2.4);
 
-    return new Lab(l, a, b);
+    double X = R * 0.4124564 + G * 0.3575761 + B * 0.1804375;
+    double Y = R * 0.2126729 + G * 0.7151522 + B * 0.0721750;
+    double Z = R * 0.0193339 + G * 0.1191920 + B * 0.9503041;
+
+    X = X / 0.95047;
+    Y = Y / 1.00000;
+    Z = Z / 1.08883;
+
+    double fx = (X > 0.008856) ? std::pow(X, 1.0 / 3.0) : ((903.3 * X) + 16.0) / 116.0;
+    double fy = (Y > 0.008856) ? std::pow(Y, 1.0 / 3.0) : ((903.3 * Y) + 16.0) / 116.0;
+    double fz = (Z > 0.008856) ? std::pow(Z, 1.0 / 3.0) : ((903.3 * Z) + 16.0) / 116.0;
+
+    return new Lab((116.0 * fy) - 16.0, (fx - fy) * 500.0, (fy - fz) * 200.0);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -373,9 +404,9 @@ ColorSystem *HSV::toRGB()
 {
     double r, g, b;
 
-    double c = v * s;
-    double x = c * (1 - abs(static_cast<int>(h / 60) % 2 - 1));
-    double m = v - c;
+    double c = v / 100 * s / 100;
+    double x = c * (1. - abs((h - (int)(h / 120) * 120) / 60 - 1));
+    double m = v / 100 - c;
 
     if (h >= 0 && h < 60)
     {
@@ -502,9 +533,10 @@ void HLS::setParam4(double val)
 ColorSystem *HLS::toRGB()
 {
     double r, g, b;
-    double c = (1 - abs(2 * l - 1)) * s;
-    double x = c * (1 - abs(static_cast<int>(h / 60) % 2 - 1));
-    double m = l - c / 2;
+
+    double c = (1 - abs(2 * l / 100 - 1)) * s / 100;
+    double x = c * (1. - abs((h - (int)(h / 120) * 120) / 60 - 1));
+    double m = l / 100 - c / 2;
 
     if (h >= 0 && h < 60)
     {
@@ -639,18 +671,6 @@ double XYZ::F(double val)
     }
 }
 
-double XYZ::Flab(double val)
-{
-    if (val >= 0.008856)
-    {
-        return pow(val, 1 / 3);
-    }
-    else
-    {
-        return 7.787 * val + 16 / 116;
-    }
-}
-
 ColorSystem *XYZ::toRGB()
 {
     double Rn = 3.2406 * (x / 100) - 1.5372 * (y / 100) - 0.4986 * (z / 100);
@@ -666,54 +686,17 @@ ColorSystem *XYZ::toRGB()
 
 ColorSystem *XYZ::toCMYK()
 {
-    double K = std::min(1.0 - F(3.2406 * (x / 100) - 1.5372 * (y / 100) - 0.4986 * (z / 100)), 1.0 - F(-0.9689 * (x / 100) + 1.8758 * (y / 100) + 0.0415 * (z / 100)));
-    K = std::min(K, 1.0 - F(0.0557 * (x / 100) - 0.2040 * (y / 100) + 1.0570 * (z / 100)));
-
-    if (K == 1)
-    {
-        return new CMYK(0, 0, 0, 100);
-    }
-
-    double C = (1.0 - F(3.2406 * (x / 100) - 1.5372 * (y / 100) - 0.4986 * (z / 100)) - K) / (1.0 - K);
-    double M = (1.0 - F(-0.9689 * (x / 100) + 1.8758 * (y / 100) + 0.0415 * (z / 100)) - K) / (1.0 - K);
-    double Y = (1.0 - F(0.0557 * (x / 100) - 0.2040 * (y / 100) + 1.0570 * (z / 100)) - K) / (.01 - K);
-
-    return new CMYK(C * 100, M * 100, Y * 100, K * 100);
+    return toRGB()->toCMYK();
 }
 
 ColorSystem *XYZ::toHSV()
 {
-    double Xf = F(3.2406 * (x / 100) - 1.5372 * (y / 100) - 0.4986 * (z / 100));
-    double Yf = F(-0.9689 * (x / 100) + 1.8758 * (y / 100) + 0.0415 * (z / 100));
-    double Zf = F(0.0557 * (x / 100) - 0.2040 * (y / 100) + 1.0570 * (z / 100));
-
-    double CMax = std::max(Xf, Yf);
-    CMax = std::max(CMax, Zf);
-    double CMin = std::min(Xf, Yf);
-    CMin = std::min(CMax, Zf);
-
-    double delta = CMax - CMin;
-
-    double S, V;
-
-    if (CMax == 0)
-    {
-        S = 0;
-    }
-    else
-    {
-        S = delta / CMax;
-    }
-    V = CMax;
-
-    QColor temp(255 * F(3.2406 * (x / 100) - 1.5372 * (y / 100) - 0.4986 * (z / 100)), 255 * F(-0.9689 * (x / 100) + 1.8758 * (y / 100) + 0.0415 * (z / 100)), 255 * F(0.0557 * (x / 100) - 0.2040 * (y / 100) + 1.0570 * (z / 100)));
-    return new HSV(temp.hsvHue(), S, V);
+    return toRGB()->toHSV();
 }
 
 ColorSystem *XYZ::toHLS()
 {
-    QColor temp(255 * F(3.2406 * (x / 100) - 1.5372 * (y / 100) - 0.4986 * (z / 100)), 255 * F(-0.9689 * (x / 100) + 1.8758 * (y / 100) + 0.0415 * (z / 100)), 255 * F(0.0557 * (x / 100) - 0.2040 * (y / 100) + 1.0570 * (z / 100)));
-    return new HLS(temp.hslHue(), temp.lightness(), temp.hslSaturation());
+    return toRGB()->toHLS();
 }
 
 ColorSystem *XYZ::toXYZ()
@@ -723,19 +706,44 @@ ColorSystem *XYZ::toXYZ()
 
 ColorSystem *XYZ::toLAB()
 {
-    return new Lab(116 * Flab(y / 100.0) - 16, 500 * (Flab(x / 95.047) - Flab(y / 100.0)), 200 * (Flab(y / 100.0) - Flab(z / 108.883)));
+    const double Xn = 95.047;
+    const double Yn = 100.000;
+    const double Zn = 108.883;
+
+    double fx = (x / Xn > 0.008856) ? std::pow(x / Xn, 1.0 / 3.0) : (903.3 * x / Xn + 16.0) / 116.0;
+    double fy = (y / Yn > 0.008856) ? std::pow(y / Yn, 1.0 / 3.0) : (903.3 * y / Yn + 16.0) / 116.0;
+    double fz = (z / Zn > 0.008856) ? std::pow(z / Zn, 1.0 / 3.0) : (903.3 * z / Zn + 16.0) / 116.0;
+
+    return new Lab(116.0 * fy - 16.0, (fx - fy) * 500.0, (fy - fz) * 200.0);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Lab::Lab(double L_, double a_, double b_)
 {
-    if (L_ > 100 || (a_ > 128 || a_ < -128) || (b_ > 128 || b_ < -128))
+    if (L_ > 100)
     {
-        L = 0;
-        a = 0;
-        b = 0;
-        throw "error";
+        L_ = 100;
+    }
+    else if (L_ < 0)
+    {
+        L_ = 0;
+    }
+    if (a_ > 128)
+    {
+        a_ = 128;
+    }
+    else if (a_ < -128)
+    {
+        a_ = -128;
+    }
+    if (b_ > 128)
+    {
+        b_ = 128;
+    }
+    else if (b_ < -128)
+    {
+        b_ = -128;
     }
 
     L = L_;
@@ -784,54 +792,17 @@ void Lab::setParam4(double val)
 
 double Lab::F(double x_)
 {
-    return 0.0;
+    if (pow(x_, 3.) >= 0.008856)
+    {
+        return pow(x_, 3.);
+    }
+
+    return (x_ - 16. / 116) / 7.787;
 }
 
 ColorSystem *Lab::toRGB()
 {
-    int R, G, B;
-
-    const double Yn = 100.0;
-    const double Xn = 95.047;
-    const double Zn = 108.883;
-
-    double fy = (L + 16.0) / 116.0;
-    double fx = a / 500.0 + fy;
-    double fz = fy - b / 200.0;
-
-    double X = (std::pow(fx, 3.0) > 0.008856) ? std::pow(fx, 3.0) : (fx - 16.0 / 116.0) / 7.787;
-    double Y = (std::pow(fy, 3.0) > 0.008856) ? std::pow(fy, 3.0) : (fy - 16.0 / 116.0) / 7.787;
-    double Z = (std::pow(fz, 3.0) > 0.008856) ? std::pow(fz, 3.0) : (fz - 16.0 / 116.0) / 7.787;
-
-    X *= Xn;
-    Y *= Yn;
-    Z *= Zn;
-
-    double Xr = X / 100.0;
-    double Yr = Y / 100.0;
-    double Zr = Z / 100.0;
-
-    R = Xr * 3.2406 + Yr * -1.5372 + Zr * -0.4986;
-    G = Xr * -0.9689 + Yr * 1.8758 + Zr * 0.0415;
-    B = Xr * 0.0557 + Yr * -0.2040 + Zr * 1.0570;
-
-    R = (R > 0.0031308) ? (1.055 * std::pow(R, 1 / 2.4) - 0.055) : 12.92 * R;
-    G = (G > 0.0031308) ? (1.055 * std::pow(G, 1 / 2.4) - 0.055) : 12.92 * G;
-    B = (B > 0.0031308) ? (1.055 * std::pow(B, 1 / 2.4) - 0.055) : 12.92 * B;
-
-    R = (R < 0.0) ? 0.0 : R;
-    G = (G < 0.0) ? 0.0 : G;
-    B = (B < 0.0) ? 0.0 : B;
-
-    R = (R > 1.0) ? 1.0 : R;
-    G = (G > 1.0) ? 1.0 : G;
-    B = (B > 1.0) ? 1.0 : B;
-
-    R *= 255.0;
-    G *= 255.0;
-    B *= 255.0;
-
-    return new RGB(R, G, B);
+    return toXYZ()->toRGB();
 }
 
 ColorSystem *Lab::toCMYK()
@@ -851,7 +822,13 @@ ColorSystem *Lab::toHLS()
 
 ColorSystem *Lab::toXYZ()
 {
-    return toRGB()->toXYZ();
+    const double Xw = 95.047;
+    const double Yw = 100;
+    const double Zw = 108.883;
+
+    return new XYZ(F(a / 500 + (L + 16.) / 116.) * Xw,
+                   F((L + 16.) / 116.) * Yw,
+                   F((L + 16.) / 116. - b / 200.) * Zw);
 }
 
 ColorSystem *Lab::toLAB()

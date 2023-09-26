@@ -44,6 +44,8 @@ private:
     void setFirst(QString);
     void setSecond(QString);
     void setThird(QString);
+
+    void offSignals(bool);
 };
 
 #endif // MAINWINDOW_H
