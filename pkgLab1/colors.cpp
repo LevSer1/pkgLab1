@@ -186,18 +186,17 @@ ColorSystem *RGB::toHLS()
     }
     else if (Cmax == r / 255.0)
     {
-        h = ((g / 255.0 - b / 255.0) / delta) - (int)((g / 255.0 - b / 255.0) / delta) / 6 * 6;
+        h = 60 * fmod(((g / 255.0 - b / 255.0) / delta), 6);
     }
     else if (Cmax == g / 255.0)
     {
-        h = (b / 255.0 - r / 255.0) / delta + 2;
+        h = 60 * (((b / 255.0 - r / 255.0) / delta) + 2);
     }
-    else if (Cmax == b)
+    else if (Cmax == b / 255.0)
     {
-        h = (r / 255.0 - g / 255.0) / delta + 4;
+        h = 60 * (((r / 255.0 - g / 255.0) / delta) + 4);
     }
 
-    h = round(h * 60);
     while (h < 0)
     {
         h += 360;
@@ -205,16 +204,16 @@ ColorSystem *RGB::toHLS()
 
     l = (Cmax + Cmin) / 2;
 
-    if (delta == 0)
+    if (Cmax == 0)
     {
         s = 0;
     }
     else
     {
-        s = delta / (1 - abs(2 * l - 1));
+        s = delta / Cmax;
     }
 
-    return new HLS(h, l, s);
+    return new HSL(h, s * 100, l * 100);
 }
 
 ColorSystem *RGB::toXYZ()
@@ -475,15 +474,31 @@ ColorSystem *HSV::toLAB()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-HLS::HLS(double H, double L, double S)
+HSL::HSL(double H, double S, double L)
 {
-    if (H > 360 || H < 0 || S > 100 || S < 0 || L > 100 || L < 0)
+    if (H > 360)
     {
-        throw "ERROR";
-        h = 0;
-        s = 0;
-        l = 0;
-        return;
+        H = 360;
+    }
+    else if (H < 0)
+    {
+        H = 0;
+    }
+    if (S > 100)
+    {
+        S = 100;
+    }
+    else if (S < 0)
+    {
+        S = 0;
+    }
+    if (L > 100)
+    {
+        L = 100;
+    }
+    else if (L < 0)
+    {
+        L = 0;
     }
 
     h = H;
@@ -491,46 +506,46 @@ HLS::HLS(double H, double L, double S)
     l = L;
 }
 
-double HLS::getParam1()
+double HSL::getParam1()
 {
     return h;
 }
 
-double HLS::getParam2()
-{
-    return l;
-}
-
-double HLS::getParam3()
+double HSL::getParam2()
 {
     return s;
 }
 
-double HLS::getParam4()
+double HSL::getParam3()
+{
+    return l;
+}
+
+double HSL::getParam4()
 {
     return 0.0;
 }
 
-void HLS::setParam1(double val)
+void HSL::setParam1(double val)
 {
     h = val;
 }
 
-void HLS::setParam2(double val)
-{
-    l = val;
-}
-
-void HLS::setParam3(double val)
+void HSL::setParam2(double val)
 {
     s = val;
 }
 
-void HLS::setParam4(double val)
+void HSL::setParam3(double val)
+{
+    l = val;
+}
+
+void HSL::setParam4(double val)
 {
 }
 
-ColorSystem *HLS::toRGB()
+ColorSystem *HSL::toRGB()
 {
     double r, g, b;
 
@@ -578,27 +593,27 @@ ColorSystem *HLS::toRGB()
     return new RGB(r, g, b);
 }
 
-ColorSystem *HLS::toCMYK()
+ColorSystem *HSL::toCMYK()
 {
     return toRGB()->toCMYK();
 }
 
-ColorSystem *HLS::toHSV()
+ColorSystem *HSL::toHSV()
 {
     return toRGB()->toHSV();
 }
 
-ColorSystem *HLS::toHLS()
+ColorSystem *HSL::toHLS()
 {
-    return new HLS(h, l, s);
+    return new HSL(h, s, l);
 }
 
-ColorSystem *HLS::toXYZ()
+ColorSystem *HSL::toXYZ()
 {
     return toRGB()->toXYZ();
 }
 
-ColorSystem *HLS::toLAB()
+ColorSystem *HSL::toLAB()
 {
     return toRGB()->toLAB();
 }

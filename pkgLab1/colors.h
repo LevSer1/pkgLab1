@@ -121,15 +121,15 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-class HLS : public ColorSystem
+class HSL : public ColorSystem
 {
 private:
     double h;
-    double l;
     double s;
+    double l;
 
 public:
-    HLS(double H, double L, double S);
+    HSL(double H, double S, double L);
 
     double getParam1() override;
     double getParam2() override;
