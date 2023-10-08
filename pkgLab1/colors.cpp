@@ -265,6 +265,38 @@ CMYK::CMYK(double C, double M, double Y, double K)
         k = 0;
         return;
     }
+    if (C > 100)
+    {
+        C = 100;
+    }
+    else if (C < 0)
+    {
+        C = 0;
+    }
+    if (M > 100)
+    {
+        M = 100;
+    }
+    else if (M < 0)
+    {
+        M = 0;
+    }
+    if (Y > 100)
+    {
+        Y = 100;
+    }
+    else if (Y < 0)
+    {
+        Y = 0;
+    }
+    if (K > 100)
+    {
+        K = 100;
+    }
+    else if (K < 0)
+    {
+        K = 0;
+    }
 
     c = C;
     m = M;
@@ -346,13 +378,29 @@ ColorSystem *CMYK::toLAB()
 
 HSV::HSV(double H, double S, double V)
 {
-    if (H > 360 || H < 0 || S > 100 || S < 0 || V > 100 || V < 0)
+    if (H > 360)
     {
-        throw "ERROR";
-        h = 0;
-        s = 0;
-        v = 0;
-        return;
+        H = 360;
+    }
+    else if (H < 0)
+    {
+        H = 0;
+    }
+    if (S > 100)
+    {
+        S = 100;
+    }
+    else if (S < 0)
+    {
+        S = 0;
+    }
+    if (V > 100)
+    {
+        V = 100;
+    }
+    else if (V < 0)
+    {
+        V = 0;
     }
 
     h = H;
@@ -622,12 +670,29 @@ ColorSystem *HSL::toLAB()
 
 XYZ::XYZ(double X = 0, double Y = 0, double Z = 0)
 {
-    if (X > 95.048 || Y > 100.0 || Z > 108.884)
+    if (X > 95.048)
     {
-        x = 0;
-        y = 0;
-        z = 0;
-        throw "error";
+        X = 95.048;
+    }
+    else if (X < 0)
+    {
+        X = 0;
+    }
+    if (Y > 100.0)
+    {
+        Y = 100.0;
+    }
+    else if (Y < 0)
+    {
+        Y = 0;
+    }
+    if (Z > 108.884)
+    {
+        Z = 108.884;
+    }
+    else if (Z < 0)
+    {
+        Z = 0;
     }
 
     x = X;

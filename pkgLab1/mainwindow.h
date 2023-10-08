@@ -28,9 +28,13 @@ private slots:
     void on_comboBox_3_activated(int index);
     void on_comboBox_4_activated(int index);
 
-    void valueChanged1(double);
-    void valueChanged2(double);
-    void valueChanged3(double);
+    void valueChangedSpin1(double);
+    void valueChangedSpin2(double);
+    void valueChangedSpin3(double);
+
+    void valueChangedSlider1(int);
+    void valueChangedSlider2(int);
+    void valueChangedSlider3(int);
 
 private:
     Ui::MainWindow *ui;
@@ -46,6 +50,10 @@ private:
     void setThird(QString);
 
     void offSignals(bool);
+
+    void set1GroupSliders(bool, double, double, double, double, double, double);
+    void set2GroupSliders(bool, double, double, double, double, double, double);
+    void set3GroupSliders(bool, double, double, double, double, double, double);
 };
 
 #endif // MAINWINDOW_H
